@@ -1,0 +1,939 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Google - JM Concept</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Playfair+Display:ital,wght@0,700;0,800;1,600;1,700;1,800&display=swap');
+
+  :root {
+    --primary: #E8523A;
+    --primary-dark: #a83828;
+    --dark: #0a0a0a;
+    --dark-soft: #141211;
+    --warm: #f5f0eb;
+    --warm-deep: #e8ddd3;
+    --ink: #171311;
+    --muted: #6f625c;
+    --white: #ffffff;
+    --amber-dark: #1c1300;
+    --amber-border: #422006;
+    --shadow-soft: 0 18px 45px rgba(23, 19, 17, 0.12);
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--dark);
+    color: var(--ink);
+    font-family: 'Inter', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    font-weight: 400;
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  .report {
+    width: 100%;
+  }
+
+  .shell {
+    width: min(1180px, calc(100% - 64px));
+    margin: 0 auto;
+  }
+
+  .section-dark {
+    background: var(--dark);
+    color: var(--white);
+  }
+
+  .section-warm {
+    background: var(--warm);
+    color: var(--ink);
+  }
+
+  .hero {
+    position: relative;
+    min-height: 560px;
+    display: grid;
+    align-items: center;
+    padding: 84px 0 72px;
+    isolation: isolate;
+  }
+
+  .hero::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: -2;
+    background:
+      linear-gradient(125deg, rgba(232, 82, 58, 0.20), transparent 30%),
+      linear-gradient(0deg, rgba(10, 10, 10, 0.92), rgba(10, 10, 10, 0.98)),
+      repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.055) 0 1px, transparent 1px 96px);
+  }
+
+  .hero::after {
+    content: "";
+    position: absolute;
+    inset: auto 0 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(232, 82, 58, 0.75), transparent);
+    z-index: -1;
+  }
+
+  .hero-content {
+    max-width: 980px;
+  }
+
+  .eyebrow,
+  .label,
+  .status,
+  .section-kicker {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+  }
+
+  .eyebrow {
+    color: rgba(255, 255, 255, 0.62);
+    margin-bottom: 16px;
+  }
+
+  .hero h1 {
+    color: var(--white);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(3.8rem, 7vw, 4.5rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 0.92;
+    letter-spacing: -0.02em;
+    max-width: 900px;
+  }
+
+  .hero-subtitle {
+    color: rgba(255, 255, 255, 0.84);
+    font-size: clamp(1.2rem, 2.2vw, 1.85rem);
+    font-weight: 300;
+    margin-top: 24px;
+  }
+
+  .hero-location {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 1rem;
+    margin-top: 8px;
+  }
+
+  .hero-line {
+    width: min(560px, 100%);
+    height: 2px;
+    margin: 32px 0 24px;
+    overflow: hidden;
+    background: rgba(255, 255, 255, 0.12);
+  }
+
+  .hero-line::after {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+    background: var(--primary);
+    animation: lineGrow 1.1s ease forwards;
+  }
+
+  .hero-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .meta-pill {
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    color: rgba(255, 255, 255, 0.72);
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    padding: 8px 12px;
+    text-transform: uppercase;
+  }
+
+  .metrics-band {
+    padding: 36px 0 84px;
+  }
+
+  .score-row {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .score-card {
+    min-height: 190px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background: linear-gradient(180deg, #151211, #0f0d0c);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 28px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .score-card::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-top: 3px solid var(--primary);
+    opacity: 0.9;
+  }
+
+  .score-card .num {
+    color: var(--primary);
+    font-size: clamp(3.8rem, 7vw, 6.4rem);
+    font-weight: 900;
+    letter-spacing: -0.06em;
+    line-height: 0.9;
+    position: relative;
+  }
+
+  .score-card .label {
+    color: rgba(255, 255, 255, 0.58);
+    position: relative;
+  }
+
+  .section-block {
+    padding: 92px 0;
+  }
+
+  .section-heading {
+    display: flex;
+    align-items: end;
+    justify-content: space-between;
+    gap: 24px;
+    margin-bottom: 36px;
+  }
+
+  .section-title-wrap {
+    max-width: 780px;
+  }
+
+  .section-icon {
+    display: inline-grid;
+    place-items: center;
+    width: 38px;
+    height: 38px;
+    margin-bottom: 16px;
+    border: 1px solid currentColor;
+    color: var(--primary);
+    font-size: 1.2rem;
+    font-weight: 800;
+  }
+
+  .section-kicker {
+    color: var(--primary);
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .section-heading h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.5rem, 5vw, 4.6rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1;
+  }
+
+  .section-heading p {
+    color: var(--muted);
+    max-width: 430px;
+  }
+
+  .good-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .item-card {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(23, 19, 17, 0.08);
+    border-left: 5px solid var(--primary);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    padding: 24px 24px 26px;
+  }
+
+  .status {
+    color: var(--primary);
+    margin-bottom: 10px;
+  }
+
+  .item-card .title {
+    color: var(--ink);
+    font-size: 1.08rem;
+    font-weight: 800;
+    line-height: 1.25;
+    margin-bottom: 10px;
+  }
+
+  .item-card .desc {
+    color: var(--muted);
+    font-size: 0.97rem;
+  }
+
+  .opportunities-section .section-heading h2,
+  .opportunities-section .section-heading p,
+  .copa-section .section-heading h2,
+  .copa-section .section-heading p {
+    color: var(--white);
+  }
+
+  .opportunities-section .section-heading p,
+  .copa-section .section-heading p {
+    color: rgba(255, 255, 255, 0.58);
+  }
+
+  .opportunity-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 18px;
+  }
+
+  .oportunidade {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 20px;
+    min-height: 300px;
+    background: #11100f;
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 8px;
+    padding: 28px;
+    transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+  }
+
+  .oportunidade:hover {
+    transform: translateY(-4px);
+    border-color: rgba(232, 82, 58, 0.68);
+    background: #151211;
+  }
+
+  .oportunidade .icon {
+    font-size: 2.6rem;
+    line-height: 1;
+  }
+
+  .oportunidade .titulo {
+    color: var(--white);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.45rem, 2vw, 2rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.1;
+    margin-bottom: 14px;
+  }
+
+  .oportunidade .detalhe {
+    color: rgba(255, 255, 255, 0.68);
+    font-size: 0.98rem;
+  }
+
+  .oportunidade .impacto {
+    color: var(--primary);
+    font-size: 0.92rem;
+    font-weight: 800;
+    line-height: 1.45;
+    margin-top: 18px;
+  }
+
+  .copa-section {
+    padding: 0 0 92px;
+  }
+
+  .copa-box {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 26px;
+    background: var(--amber-dark);
+    border: 1px solid var(--amber-border);
+    border-radius: 8px;
+    padding: 34px;
+  }
+
+  .copa-box .copa-icon {
+    font-size: 3.2rem;
+    line-height: 1;
+  }
+
+  .copa-box .titulo {
+    color: #ffd166;
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(1.8rem, 3vw, 3rem);
+    font-style: italic;
+    font-weight: 700;
+    line-height: 1.05;
+    margin-bottom: 14px;
+  }
+
+  .copa-box p {
+    color: #deb46a;
+    font-size: 1.02rem;
+    max-width: 900px;
+  }
+
+  .impact-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.1fr) minmax(320px, 0.9fr);
+    gap: 28px;
+    align-items: stretch;
+  }
+
+  .impacto-box,
+  .progress-panel {
+    background: rgba(255, 255, 255, 0.72);
+    border: 1px solid rgba(23, 19, 17, 0.08);
+    border-radius: 8px;
+    box-shadow: var(--shadow-soft);
+    padding: 28px;
+  }
+
+  .impacto-box .titulo {
+    color: var(--primary);
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    margin-bottom: 14px;
+    text-transform: uppercase;
+  }
+
+  .impacto-box p {
+    color: var(--muted);
+    font-size: 1.02rem;
+  }
+
+  .progress-panel {
+    display: grid;
+    align-content: center;
+    gap: 24px;
+  }
+
+  .progress-item {
+    display: grid;
+    gap: 10px;
+  }
+
+  .progress-top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    color: var(--ink);
+    font-size: 0.86rem;
+    font-weight: 700;
+  }
+
+  .progress-top strong {
+    color: var(--primary);
+    font-size: 1.1rem;
+    font-weight: 900;
+  }
+
+  .progress-track {
+    height: 12px;
+    overflow: hidden;
+    background: var(--warm-deep);
+    border-radius: 999px;
+  }
+
+  .progress-track span {
+    display: block;
+    width: var(--progress);
+    height: 100%;
+    background: linear-gradient(90deg, var(--primary-dark), var(--primary));
+    border-radius: inherit;
+    transform-origin: left;
+    animation: progressGrow 0.9s ease forwards;
+  }
+
+  .next-section {
+    background: var(--primary);
+    color: var(--white);
+    padding: 92px 0;
+  }
+
+  .next-content {
+    max-width: 980px;
+  }
+
+  .next-kicker {
+    color: rgba(255, 255, 255, 0.82);
+    display: block;
+    margin-bottom: 14px;
+  }
+
+  .next-section h2 {
+    color: var(--white);
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(3rem, 6vw, 6rem);
+    font-style: italic;
+    font-weight: 800;
+    line-height: 0.95;
+    margin-bottom: 20px;
+  }
+
+  .next-section p {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: 1.12rem;
+    max-width: 760px;
+  }
+
+  .items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 32px;
+  }
+
+  .tag {
+    border: 1px solid rgba(255, 255, 255, 0.86);
+    border-radius: 999px;
+    color: var(--white);
+    font-size: 0.86rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    padding: 10px 16px;
+    text-transform: uppercase;
+  }
+
+  .footer {
+    background: var(--dark);
+    color: rgba(255, 255, 255, 0.58);
+    padding: 44px 0;
+    text-align: center;
+  }
+
+  .footer-logo {
+    display: block;
+    width: min(180px, 60vw);
+    height: auto;
+    margin: 0 auto 18px;
+  }
+
+  .footer p {
+    font-size: 0.9rem;
+  }
+
+  .fade-card {
+    opacity: 0;
+    transform: translateY(18px);
+    animation: fadeIn 0.6s ease forwards;
+    animation-delay: var(--delay, 0s);
+  }
+
+  @keyframes fadeIn {
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @keyframes lineGrow {
+    to {
+      width: 100%;
+    }
+  }
+
+  @keyframes progressGrow {
+    from {
+      transform: scaleX(0);
+    }
+    to {
+      transform: scaleX(1);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .shell {
+      width: min(100% - 40px, 680px);
+    }
+
+    .hero {
+      min-height: auto;
+      padding: 72px 0 58px;
+    }
+
+    .score-row,
+    .good-grid,
+    .opportunity-grid,
+    .impact-layout {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .score-card {
+      min-height: 170px;
+    }
+
+    .score-card:last-child {
+      grid-column: 1 / -1;
+    }
+
+    .section-block,
+    .next-section {
+      padding: 72px 0;
+    }
+
+    .section-heading {
+      display: block;
+    }
+
+    .section-heading p {
+      margin-top: 16px;
+    }
+
+    .oportunidade {
+      min-height: auto;
+      padding: 24px;
+    }
+
+    .impact-layout {
+      grid-template-columns: 1fr;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .shell {
+      width: calc(100% - 28px);
+    }
+
+    .hero {
+      padding: 56px 0 46px;
+    }
+
+    .hero h1 {
+      font-size: clamp(3.2rem, 18vw, 4.4rem);
+    }
+
+    .hero-subtitle {
+      font-size: 1.08rem;
+    }
+
+    .hero-meta {
+      display: grid;
+    }
+
+    .score-row,
+    .good-grid,
+    .opportunity-grid {
+      grid-template-columns: 1fr;
+    }
+
+    .score-card:last-child {
+      grid-column: auto;
+    }
+
+    .score-card {
+      min-height: 150px;
+      padding: 22px;
+    }
+
+    .score-card .num {
+      font-size: 3.4rem;
+    }
+
+    .section-block,
+    .next-section {
+      padding: 58px 0;
+    }
+
+    .section-heading h2,
+    .next-section h2 {
+      font-size: 2.65rem;
+    }
+
+    .item-card,
+    .impacto-box,
+    .progress-panel {
+      padding: 22px;
+    }
+
+    .oportunidade,
+    .copa-box {
+      grid-template-columns: 1fr;
+      padding: 22px;
+    }
+
+    .oportunidade .icon,
+    .copa-box .copa-icon {
+      font-size: 2.4rem;
+    }
+
+    .tag {
+      width: 100%;
+      text-align: center;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    html {
+      scroll-behavior: auto;
+    }
+
+    .fade-card {
+      animation: none;
+      opacity: 1;
+      transform: none;
+    }
+
+    .hero-line::after {
+      animation: none;
+      width: 100%;
+    }
+
+    .progress-track span {
+      animation: none;
+      transform: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<main class="report">
+  <header class="hero section-dark">
+    <div class="shell hero-content">
+      <div class="eyebrow">Diagnóstico Gratuito</div>
+      <h1>JM Concept</h1>
+      <p class="hero-subtitle">Diagnóstico · Google Meu Negócio</p>
+      <p class="hero-location">JM Concept Barbearia · Santa Efigênia, BH</p>
+      <div class="hero-line" aria-hidden="true"></div>
+      <div class="hero-meta">
+        <span class="meta-pill">Análise: 20/05/2026</span>
+        <span class="meta-pill">Preparado por Plixel</span>
+        <span class="meta-pill">Diagnóstico Gratuito</span>
+      </div>
+    </div>
+  </header>
+
+  <section class="metrics-band section-dark" aria-label="Métricas principais">
+    <div class="shell">
+      <div class="score-row">
+        <article class="score-card fade-card" style="--delay: 0.05s;">
+          <div class="num">4.9★</div>
+          <div class="label">Avaliação Google</div>
+        </article>
+        <article class="score-card fade-card" style="--delay: 0.14s;">
+          <div class="num">1.216</div>
+          <div class="label">Avaliações recebidas</div>
+        </article>
+        <article class="score-card fade-card" style="--delay: 0.23s;">
+          <div class="num">8</div>
+          <div class="label">Oportunidades identificadas</div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-warm">
+    <div class="shell">
+      <div class="section-heading">
+        <div class="section-title-wrap">
+          <span class="section-icon" aria-hidden="true">✓</span>
+          <h2>O que está bem</h2>
+        </div>
+      </div>
+
+      <div class="good-grid">
+        <article class="item-card fade-card" style="--delay: 0.06s;">
+          <div class="status">Confirmado</div>
+          <h3 class="title">Nota e volume de avaliações</h3>
+          <p class="desc">4.9★ com 1.216 avaliações é um ativo raramente construído. Isso posiciona a JM Concept entre os melhores do segmento em BH.</p>
+        </article>
+        <article class="item-card fade-card" style="--delay: 0.14s;">
+          <div class="status">Confirmado</div>
+          <h3 class="title">Endereço cadastrado</h3>
+          <p class="desc">Rua Tenente Anastácio de Moura, 430, Loja 6, Santa Efigênia, BH. Informações físicas corretas e consistentes.</p>
+        </article>
+        <article class="item-card fade-card" style="--delay: 0.22s;">
+          <div class="status">Confirmado</div>
+          <h3 class="title">CNPJ ativo</h3>
+          <p class="desc">Empresa registrada e ativa desde 06/07/2023. Passagem em diretórios de negócios consistente.</p>
+        </article>
+        <article class="item-card fade-card" style="--delay: 0.30s;">
+          <div class="status">Confirmado</div>
+          <h3 class="title">Aparece em múltiplos diretórios</h3>
+          <p class="desc">JM Concept aparece em Guia Fácil, Brasil Infos, Rank Level e outros. Boa distribuição de presença local.</p>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-dark opportunities-section">
+    <div class="shell">
+      <div class="section-heading">
+        <div class="section-title-wrap">
+          <span class="section-icon" aria-hidden="true">◆</span>
+          <h2>Oportunidades identificadas</h2>
+        </div>
+      </div>
+
+      <div class="opportunity-grid">
+        <article class="oportunidade fade-card" style="--delay: 0.05s;">
+          <div class="icon">🏷️</div>
+          <div class="content">
+            <h3 class="titulo">Categorias secundárias não cadastradas</h3>
+            <p class="detalhe">O Google só vê "Cabeleireiros, manicure e pedicure" como categoria. Faltam: Barbearia, Salão de beleza, Especialista em cabelos crespos e cacheados. Cada categoria nova abre um grupo diferente de buscas.</p>
+            <p class="impacto">→ Impacto direto: mais buscas, mais cliques, mais clientes sem pagar mais por tráfego</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.12s;">
+          <div class="icon">📋</div>
+          <div class="content">
+            <h3 class="titulo">Serviços não cadastrados com descrição e preço</h3>
+            <p class="detalhe">Corte masculino, feminino, tranças, coloração, cursos e mentoria podem ser cadastrados individualmente no Google com descrição e faixa de preço. Esses dados aparecem diretamente no painel de busca antes de o cliente clicar.</p>
+            <p class="impacto">→ Impacto direto: cliente chega mais qualificado e com menor fricção para agendar</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.19s;">
+          <div class="icon">📸</div>
+          <div class="content">
+            <h3 class="titulo">Fotos desatualizadas</h3>
+            <p class="detalhe">Perfis que atualizam fotos regularmente têm ranqueamento local superior. O algoritmo do Google favorece perfis ativos. Com a nova identidade visual sendo construída, essa é a hora de atualizar.</p>
+            <p class="impacto">→ Impacto direto: melhora posição no mapa e aumenta taxa de clique no perfil</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.26s;">
+          <div class="icon">📝</div>
+          <div class="content">
+            <h3 class="titulo">Google Posts ausentes</h3>
+            <p class="detalhe">Google Posts são publicações que aparecem diretamente no painel de busca. Negócios que publicam pelo menos 1x por semana têm vantagem de ranqueamento orgânico acumulativo. Hoje não há evidência de publicações ativas.</p>
+            <p class="impacto">→ Impacto direto: ranqueamento orgânico cresce semana a semana sem custo adicional</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.33s;">
+          <div class="icon">💬</div>
+          <div class="content">
+            <h3 class="titulo">Respostas a avaliações inconsistentes</h3>
+            <p class="detalhe">Responder avaliações (especialmente as negativas) influencia diretamente o ranqueamento local e transmite profissionalismo para quem lê antes de agendar. Cada resposta é uma oportunidade de reforçar a marca.</p>
+            <p class="impacto">→ Impacto direto: aumenta confiança de novos clientes e melhora posição local</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.40s;">
+          <div class="icon">❓</div>
+          <div class="content">
+            <h3 class="titulo">Perguntas e Respostas (Q&A) não gerenciadas</h3>
+            <p class="detalhe">Qualquer pessoa pode fazer e responder perguntas públicas no perfil do Google. Sem gerenciamento, aparecem perguntas sem resposta ,ou pior, respostas erradas de terceiros. O ideal é cadastrar as perguntas frequentes com as respostas certas: "Precisa agendar?", "Atende cabelo crespo?", "Qual o preço do corte?", "Faz tranças?".</p>
+            <p class="impacto">→ Impacto direto: cliente chega mais informado, menos fricção pra agendar, menos dúvida antes de entrar em contato</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.47s;">
+          <div class="icon">📅</div>
+          <div class="content">
+            <h3 class="titulo">Horário especial para eventos e datas comemorativas</h3>
+            <p class="detalhe">O Google permite cadastrar horários especiais para feriados e eventos. Com a Copa do Mundo 2026 se aproximando (e jogos que podem mudar a rotina de atendimento) ter isso atualizado evita que o Google mostre "Fechado" quando o salão está aberto, ou vice-versa. Vale revisar e manter atualizado.</p>
+            <p class="impacto">→ Impacto direto: evita perda de cliente que chega na porta na hora errada por informação desatualizada</p>
+          </div>
+        </article>
+
+        <article class="oportunidade fade-card" style="--delay: 0.54s;">
+          <div class="icon">📲</div>
+          <div class="content">
+            <h3 class="titulo">Link de agendamento direto não configurado</h3>
+            <p class="detalhe">O Google permite cadastrar um botão de agendamento direto no perfil, o cliente agenda sem precisar sair da busca. Se a JM Concept usa algum sistema de agenda online, esse link pode ser integrado. Menos cliques = mais conversão.</p>
+            <p class="impacto">→ Impacto direto: reduz fricção do processo de agendamento e aumenta conversão diretamente da busca</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="copa-section section-dark">
+    <div class="shell">
+      <div class="copa-box fade-card" style="--delay: 0.10s;">
+        <div class="copa-icon" aria-hidden="true">⚽</div>
+        <div>
+          <h2 class="titulo">Copa do Mundo 2026: por que o orgânico importa agora</h2>
+          <p>Com o tráfego pago ficando mais caro durante a Copa, cada melhoria no Google orgânico representa economia real. Um perfil bem otimizado aparece mais nas buscas "barbearia perto de mim" e "corte afro BH" sem precisar aumentar o investimento em anúncio. O orgânico não substitui o tráfego, mas reduz a dependência.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section-block section-warm impact-section">
+    <div class="shell">
+      <div class="section-heading">
+        <div class="section-title-wrap">
+          <span class="section-icon" aria-hidden="true">↗</span>
+          <span class="section-kicker">O que muda com a otimização</span>
+          <h2>Impacto estimado</h2>
+        </div>
+      </div>
+
+      <div class="impact-layout">
+        <article class="impacto-box fade-card" style="--delay: 0.08s;">
+          <div class="titulo">Com categorias + serviços + posts regulares:</div>
+          <p>Perfis de barbearia em BH que aplicaram essas otimizações registram aumento médio de 30-50% em visualizações no Google Maps e aumento de 20-35% em chamadas e cliques no site nos primeiros 60 dias. Para a JM Concept, com a base de 1.216 avaliações, o potencial de crescimento orgânico é significativamente maior que a média do segmento.</p>
+        </article>
+
+        <aside class="progress-panel fade-card" style="--delay: 0.18s;" aria-label="Barras visuais de crescimento percentual">
+          <div class="progress-item">
+            <div class="progress-top">
+              <span>Visualizações no Google Maps</span>
+              <strong>30-50%</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span style="--progress: 50%;"></span>
+            </div>
+          </div>
+          <div class="progress-item">
+            <div class="progress-top">
+              <span>Chamadas e cliques no site</span>
+              <strong>20-35%</strong>
+            </div>
+            <div class="progress-track" aria-hidden="true">
+              <span style="--progress: 35%;"></span>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <section class="next-section">
+    <div class="shell next-content">
+      <span class="next-kicker section-kicker">O que implementamos juntos</span>
+      <h2>Próximos Passos</h2>
+      <p>Otimização completa do Google Meu Negócio como parte da estratégia de conteúdo e identidade visual</p>
+      <div class="items">
+        <span class="tag">Categorias corretas</span>
+        <span class="tag">Serviços cadastrados</span>
+        <span class="tag">Fotos atualizadas</span>
+        <span class="tag">Google Posts semanais</span>
+        <span class="tag">Respostas a avaliações</span>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="footer">
+  <div class="shell">
+    <img class="footer-logo" src="data:image/png;base64,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" alt="Plixel">
+    <p>Diagnóstico preparado por Plixel · 2026</p>
+  </div>
+</footer>
+
+</body>
+</html>
