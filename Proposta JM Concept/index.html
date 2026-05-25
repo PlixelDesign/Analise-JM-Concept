@@ -1,0 +1,1060 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial | JM Concept Barbearia</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&display=swap');
+
+    :root {
+      --coral: #E8523A;
+      --black: #0a0a0a;
+      --cream: #f5f0eb;
+      --text: #1a1a1a;
+      --muted: #666666;
+      --white: #ffffff;
+      --max: 1180px;
+      --ease: cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      background: var(--cream);
+      color: var(--text);
+      font-family: "Inter", Arial, sans-serif;
+      font-weight: 400;
+      line-height: 1.6;
+      overflow-x: hidden;
+    }
+
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .section {
+      position: relative;
+      padding: 120px 32px;
+      overflow: hidden;
+    }
+
+    .container {
+      width: min(100%, var(--max));
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+    }
+
+    .label {
+      margin: 0 0 24px;
+      color: var(--coral);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .label.light {
+      color: rgba(255, 255, 255, 0.7);
+    }
+
+    .title {
+      margin: 0;
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(40px, 5vw, 56px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.98;
+      letter-spacing: 0;
+    }
+
+    .title.medium {
+      font-size: clamp(36px, 4vw, 48px);
+    }
+
+    .body-copy {
+      max-width: 760px;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.9;
+    }
+
+    .dark {
+      background: var(--black);
+      color: var(--white);
+    }
+
+    .dark .body-copy,
+    .dark .section-subtitle {
+      color: rgba(255, 255, 255, 0.78);
+    }
+
+    .section-subtitle {
+      max-width: 860px;
+      margin-top: 28px;
+      color: var(--muted);
+      font-size: 18px;
+      font-weight: 300;
+      line-height: 1.8;
+    }
+
+    .reveal {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s var(--ease), transform 0.75s var(--ease);
+    }
+
+    .reveal.in-view {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .delay-1 { transition-delay: 0.08s; }
+    .delay-2 { transition-delay: 0.16s; }
+    .delay-3 { transition-delay: 0.24s; }
+    .delay-4 { transition-delay: 0.32s; }
+    .delay-5 { transition-delay: 0.40s; }
+
+    .hero {
+      min-height: 100vh;
+      padding: 34px 32px 28px;
+      display: grid;
+      align-items: center;
+      background: var(--black) url("01_foto_grid_cabelos.png") center / cover no-repeat;
+      color: var(--white);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.65);
+      z-index: 1;
+    }
+
+    .hero-inner {
+      min-height: calc(100vh - 62px);
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      align-items: center;
+      text-align: center;
+    }
+
+    .jm-logo {
+      width: 92px;
+      margin: 0 auto;
+    }
+
+    .hero-content {
+      align-self: center;
+      padding: 72px 0;
+    }
+
+    .hero-tag {
+      margin: 0 0 24px;
+      color: var(--coral);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      margin: 0;
+      color: var(--white);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(64px, 8vw, 96px);
+      font-style: italic;
+      font-weight: 400;
+      line-height: 0.92;
+    }
+
+    .hero-subtitle {
+      margin: 28px 0 0;
+      color: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    .hero-line {
+      width: 60px;
+      height: 2px;
+      margin: 34px auto 0;
+      background: var(--coral);
+      animation: heroLine 1.2s var(--ease) 0.35s both;
+      transform-origin: center;
+    }
+
+    .hero-footer {
+      color: rgba(255, 255, 255, 0.5);
+      font-size: 12px;
+      font-weight: 300;
+      letter-spacing: 0.03em;
+    }
+
+    @keyframes heroLine {
+      from {
+        transform: scaleX(0);
+      }
+      to {
+        transform: scaleX(1);
+      }
+    }
+
+    .identify-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.35fr) minmax(340px, 0.9fr);
+      gap: 70px;
+      align-items: stretch;
+    }
+
+    .identify-text {
+      align-self: center;
+    }
+
+    .identify-text .body-copy {
+      margin-top: 34px;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 26px;
+      margin-top: 56px;
+      padding-top: 30px;
+      border-top: 1px solid rgba(232, 82, 58, 0.24);
+    }
+
+    .metric {
+      transform: scale(0.96);
+      opacity: 0;
+      transition: opacity 0.65s var(--ease), transform 0.65s var(--ease);
+    }
+
+    .metric.in-view {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .metric-number {
+      display: block;
+      color: var(--coral);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(36px, 4vw, 50px);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .metric-label {
+      display: block;
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .portrait-frame {
+      min-height: 650px;
+      height: 100%;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .portrait-frame img,
+    .wide-photo img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .deliveries-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 18px;
+      margin-top: 58px;
+    }
+
+    .delivery-card,
+    .capture-card,
+    .investment-card {
+      position: relative;
+      background: rgba(255, 255, 255, 0.035);
+      transition: transform 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+    }
+
+    .delivery-card {
+      min-height: 178px;
+      padding: 30px 28px;
+      border-left: 3px solid var(--coral);
+      border-top: 1px solid rgba(255, 255, 255, 0.12);
+      border-right: 1px solid rgba(255, 255, 255, 0.12);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .delivery-card:hover {
+      transform: translateY(-6px);
+      background: rgba(255, 255, 255, 0.06);
+      border-color: rgba(232, 82, 58, 0.7);
+    }
+
+    .delivery-card h3,
+    .capture-card h3 {
+      margin: 0;
+      color: var(--white);
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .delivery-card p,
+    .capture-card p {
+      margin-top: 18px;
+      color: rgba(255, 255, 255, 0.68);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .wide-photo {
+      position: relative;
+      height: 400px;
+      margin-top: 64px;
+      overflow: hidden;
+      background: var(--black);
+    }
+
+    .wide-photo::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.18);
+    }
+
+    .workflow-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 44px;
+      margin-top: 58px;
+    }
+
+    .list-block h3 {
+      margin: 0 0 26px;
+      color: var(--text);
+      font-size: 20px;
+      font-weight: 600;
+    }
+
+    .check-list {
+      display: grid;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .check-list li {
+      position: relative;
+      padding-left: 32px;
+      color: var(--muted);
+      font-size: 17px;
+      font-weight: 300;
+    }
+
+    .check-list li::before {
+      content: "";
+      position: absolute;
+      top: 9px;
+      left: 0;
+      width: 13px;
+      height: 7px;
+      border-left: 2px solid var(--coral);
+      border-bottom: 2px solid var(--coral);
+      transform: rotate(-45deg);
+    }
+
+    .recommendation-box {
+      margin-top: 58px;
+      padding: 34px 38px;
+      background: var(--coral);
+      color: var(--white);
+      font-size: 19px;
+      font-weight: 400;
+      line-height: 1.7;
+    }
+
+    .capture {
+      background: var(--black) url("04_foto_espaco.png") center / cover no-repeat;
+    }
+
+    .capture::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(10, 10, 10, 0.82);
+      z-index: 1;
+    }
+
+    .capture-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 22px;
+      margin-top: 52px;
+      max-width: 760px;
+    }
+
+    .capture-card {
+      min-height: 172px;
+      padding: 30px;
+      border: 1px solid rgba(232, 82, 58, 0.72);
+      background: rgba(10, 10, 10, 0.38);
+    }
+
+    .capture-note {
+      margin-top: 30px;
+      color: rgba(255, 255, 255, 0.62);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .investment-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 26px;
+      margin-top: 58px;
+    }
+
+    .investment-card {
+      padding: 42px 38px 36px;
+      background: rgba(255, 255, 255, 0.45);
+      border: 1px solid rgba(26, 26, 26, 0.16);
+    }
+
+    .investment-card.featured {
+      border: 1px solid var(--coral);
+      background: rgba(255, 255, 255, 0.64);
+    }
+
+    .investment-card:hover {
+      transform: translateY(-6px);
+    }
+
+    .proposal-tag {
+      display: block;
+      margin-bottom: 28px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+    }
+
+    .investment-card.featured .proposal-tag {
+      color: var(--coral);
+    }
+
+    .price {
+      margin: 0;
+      color: var(--text);
+      font-family: "Playfair Display", Georgia, serif;
+      font-size: clamp(52px, 6vw, 64px);
+      font-weight: 400;
+      line-height: 1;
+    }
+
+    .investment-card.featured .price {
+      color: var(--coral);
+    }
+
+    .price-caption {
+      margin-top: 10px;
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 300;
+    }
+
+    .investment-list {
+      display: grid;
+      gap: 13px;
+      margin: 34px 0 0;
+      padding: 0;
+      list-style: none;
+    }
+
+    .investment-list li {
+      color: var(--text);
+      font-size: 16px;
+      font-weight: 300;
+    }
+
+    .investment-note {
+      margin-top: 32px;
+      color: var(--muted);
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .investment-footer {
+      margin-top: 58px;
+      padding-top: 28px;
+      border-top: 2px solid var(--coral);
+      color: var(--muted);
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+    }
+
+    .next {
+      background: var(--coral);
+      color: var(--white);
+    }
+
+    .next .section-subtitle {
+      color: rgba(255, 255, 255, 0.9);
+    }
+
+    .timeline {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 0;
+      margin-top: 62px;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: "";
+      position: absolute;
+      top: 18px;
+      left: 7%;
+      right: 7%;
+      height: 1px;
+      background: rgba(255, 255, 255, 0.42);
+    }
+
+    .timeline-step {
+      position: relative;
+      padding-top: 56px;
+      color: var(--white);
+    }
+
+    .timeline-step::before {
+      content: "";
+      position: absolute;
+      top: 10px;
+      left: 0;
+      width: 16px;
+      height: 16px;
+      border: 2px solid var(--white);
+      border-radius: 50%;
+      background: var(--coral);
+      z-index: 2;
+    }
+
+    .timeline-number {
+      display: block;
+      margin-bottom: 8px;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+    }
+
+    .timeline-label {
+      display: block;
+      max-width: 190px;
+      font-size: 18px;
+      font-weight: 600;
+      line-height: 1.35;
+    }
+
+    .footer-rule {
+      margin-top: 92px;
+      border: 0;
+      border-top: 1px solid rgba(255, 255, 255, 0.3);
+    }
+
+    .proposal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 28px;
+      margin-top: 28px;
+      color: rgba(255, 255, 255, 0.82);
+      font-size: 13px;
+      font-weight: 300;
+      line-height: 1.6;
+    }
+
+    .plixel-logo {
+      width: 82px;
+      flex: 0 0 auto;
+    }
+
+    .jm-footer-logo {
+      width: 72px;
+      flex: 0 0 auto;
+    }
+
+    .footer-divider {
+      width: 1px;
+      height: 28px;
+      background: rgba(255, 255, 255, 0.28);
+      flex: 0 0 auto;
+    }
+
+    .footer-left,
+    .footer-right {
+      display: flex;
+      align-items: center;
+      gap: 18px;
+    }
+
+    @media (max-width: 1199px) {
+      :root {
+        --max: 960px;
+      }
+
+      .section {
+        padding: 96px 28px;
+      }
+
+      .identify-grid {
+        grid-template-columns: minmax(0, 1.05fr) minmax(300px, 0.9fr);
+        gap: 44px;
+      }
+
+      .portrait-frame {
+        min-height: 560px;
+      }
+
+      .deliveries-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 767px) {
+      .section {
+        padding: 72px 20px;
+      }
+
+      .label {
+        margin-bottom: 18px;
+        font-size: 10px;
+      }
+
+      .title,
+      .title.medium {
+        max-width: 100%;
+        font-size: 36px;
+        line-height: 1.04;
+      }
+
+      .body-copy,
+      .section-subtitle {
+        font-size: 16px;
+        line-height: 1.75;
+      }
+
+      .hero {
+        min-height: 100vh;
+        padding: 24px 20px;
+        background-position: center;
+      }
+
+      .hero-inner {
+        min-height: calc(100vh - 48px);
+      }
+
+      .jm-logo {
+        width: 78px;
+      }
+
+      .hero-content {
+        padding: 48px 0;
+      }
+
+      .hero-tag {
+        font-size: 10px;
+        line-height: 1.6;
+      }
+
+      .hero-title {
+        font-size: 36px;
+        line-height: 1;
+      }
+
+      .hero-subtitle {
+        font-size: 14px;
+        line-height: 1.7;
+      }
+
+      .identify-grid,
+      .workflow-grid,
+      .capture-grid,
+      .investment-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .identify-grid {
+        gap: 38px;
+      }
+
+      .identify-text .body-copy {
+        margin-top: 26px;
+      }
+
+      .metrics {
+        grid-template-columns: 1fr;
+        gap: 24px;
+        margin-top: 38px;
+      }
+
+      .portrait-frame {
+        min-height: 420px;
+      }
+
+      .deliveries-grid {
+        grid-template-columns: 1fr;
+        margin-top: 42px;
+      }
+
+      .delivery-card,
+      .capture-card,
+      .investment-card {
+        padding: 26px 22px;
+      }
+
+      .wide-photo {
+        height: 320px;
+        margin-top: 44px;
+      }
+
+      .recommendation-box {
+        margin-top: 42px;
+        padding: 26px 22px;
+        font-size: 16px;
+      }
+
+      .capture-grid,
+      .investment-grid {
+        margin-top: 42px;
+      }
+
+      .price {
+        font-size: 48px;
+      }
+
+      .timeline {
+        grid-template-columns: 1fr;
+        gap: 26px;
+        margin-top: 46px;
+      }
+
+      .timeline::before {
+        top: 8px;
+        bottom: 8px;
+        left: 8px;
+        right: auto;
+        width: 1px;
+        height: auto;
+      }
+
+      .timeline-step {
+        padding: 0 0 0 42px;
+      }
+
+      .timeline-step::before {
+        top: 4px;
+        left: 0;
+      }
+
+      .timeline-label {
+        max-width: none;
+        font-size: 16px;
+      }
+
+      .footer-rule {
+        margin-top: 62px;
+      }
+
+      .proposal-footer,
+      .footer-left,
+      .footer-right {
+        align-items: flex-start;
+      }
+
+      .proposal-footer {
+        flex-direction: column;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        scroll-behavior: auto !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal,
+      .metric {
+        opacity: 1;
+        transform: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <section class="section hero" aria-label="Capa da proposta">
+      <div class="container hero-inner">
+        <img class="jm-logo reveal" src="05_logo_jm_branca.png" alt="JM Concept">
+        <div class="hero-content">
+          <p class="hero-tag reveal delay-1">DIAGNÓSTICO GRATUITO · PROPOSTA COMERCIAL</p>
+          <h1 class="hero-title reveal delay-2">Junho 2026.</h1>
+          <p class="hero-subtitle reveal delay-3">Planejamento Estratégico de Conteúdo · Copa do Mundo · 30 dias</p>
+          <div class="hero-line" aria-hidden="true"></div>
+        </div>
+        <p class="hero-footer reveal delay-4">Preparado por Plixel Design · 22 de maio de 2026</p>
+      </div>
+    </section>
+
+    <section class="section" id="identificamos">
+      <div class="container identify-grid">
+        <div class="identify-text">
+          <p class="label reveal">01 / O QUE IDENTIFICAMOS</p>
+          <h2 class="title medium reveal delay-1">Você já tem o mais difícil.</h2>
+          <p class="body-copy reveal delay-2">A JM Concept tem o que a maioria das marcas passa anos tentando construir — reputação real, identidade visual forte, nicho claro e uma comunidade que acredita no que você faz. 4.9★ com mais de 1.200 avaliações não se compra. Isso se constrói atendimento a atendimento. O que está faltando não é presença. É arquitetura. Um sistema que transforma tudo isso em conteúdo consistente, intencional e com função estratégica clara — semana após semana, sem depender de improviso ou de uma única pessoa criativa.</p>
+          <div class="metrics">
+            <div class="metric delay-1">
+              <span class="metric-number">4.9★</span>
+              <span class="metric-label">Google</span>
+            </div>
+            <div class="metric delay-2">
+              <span class="metric-number">1.200+</span>
+              <span class="metric-label">avaliações</span>
+            </div>
+            <div class="metric delay-3">
+              <span class="metric-number">10.2k</span>
+              <span class="metric-label">seguidores</span>
+            </div>
+          </div>
+        </div>
+        <div class="portrait-frame reveal delay-3">
+          <img src="02_foto_jean_menina.png" alt="Jean sorrindo com uma menina">
+        </div>
+      </div>
+    </section>
+
+    <section class="section dark" id="vamos-fazer">
+      <div class="container">
+        <p class="label reveal">02 / O QUE VAMOS FAZER</p>
+        <h2 class="title reveal delay-1">30 dias. 30 posts. Um sistema.</h2>
+        <p class="section-subtitle reveal delay-2">Junho de 2026 é um mês de alta atenção — Copa do Mundo, agenda cheia, concorrência por atenção no pico. A maioria das marcas vai fazer conteúdo genérico de Copa. A JM Concept vai fazer o oposto.</p>
+
+        <div class="deliveries-grid">
+          <article class="delivery-card reveal delay-1">
+            <h3>Planejamento estratégico completo</h3>
+            <p>Cada post com função definida. Nenhum post existe por acaso.</p>
+          </article>
+          <article class="delivery-card reveal delay-2">
+            <h3>30 artes produzidas</h3>
+            <p>Capas de Reels, carrosséis e posts editoriais na identidade JM Concept.</p>
+          </article>
+          <article class="delivery-card reveal delay-3">
+            <h3>30 legendas estratégicas</h3>
+            <p>Abertura, corpo e CTA. Sofisticado, humano, nunca raso.</p>
+          </article>
+          <article class="delivery-card reveal delay-1">
+            <h3>Gestão de aprovações</h3>
+            <p>Você revisa, aprova e a gente ajusta. Sem surpresa na entrega.</p>
+          </article>
+          <article class="delivery-card reveal delay-2">
+            <h3>Relatório final</h3>
+            <p>Fechamento do mês com dados e direção para julho.</p>
+          </article>
+          <article class="delivery-card reveal delay-3">
+            <h3>Google Meu Negócio</h3>
+            <p>Otimização completa do perfil para capturar mais orgânico durante a Copa.</p>
+          </article>
+        </div>
+
+        <div class="wide-photo reveal delay-2">
+          <img src="03_foto_jean_cliente.png" alt="Jean trabalhando com cliente">
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="como-funciona">
+      <div class="container">
+        <p class="label reveal">03 / COMO FUNCIONA</p>
+        <h2 class="title medium reveal delay-1">O que você faz. O que a Plixel faz.</h2>
+
+        <div class="workflow-grid">
+          <div class="list-block reveal delay-2">
+            <h3>Plixel entrega:</h3>
+            <ul class="check-list">
+              <li>Todas as artes</li>
+              <li>Todas as legendas</li>
+              <li>Gestão do calendário</li>
+              <li>Relatório mensal</li>
+            </ul>
+          </div>
+
+          <div class="list-block reveal delay-3">
+            <h3>Jean produz:</h3>
+            <ul class="check-list">
+              <li>Vídeos para os Reels (aproximadamente 15 ao longo do mês)</li>
+              <li>Fotos brutas do espaço e atendimentos</li>
+              <li>Validação técnica do conteúdo educativo</li>
+              <li>Informações dos posts de Offer (vagas, valores, datas)</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="recommendation-box reveal delay-2">Recomendação: reserve um dia fixo por semana para gravação. É mais eficiente do que gravar por demanda e garante que o calendário não trave.</div>
+      </div>
+    </section>
+
+    <section class="section dark capture" id="captacao">
+      <div class="container">
+        <p class="label reveal">04 / CAPTAÇÃO — OPCIONAL</p>
+        <h2 class="title medium reveal delay-1">Quer que a Plixel cuide da captação também?</h2>
+        <p class="section-subtitle reveal delay-2">Se preferir não se preocupar com produção de vídeo e fotos, trabalhamos com uma parceira especializada em captação para marcas premium. Cada sessão presencial de 2 horas no espaço JM Concept cobre fotos, clipes e vídeos para os Reels da semana.</p>
+
+        <div class="capture-grid">
+          <article class="capture-card reveal delay-1">
+            <h3>Valor por sessão</h3>
+            <p>A confirmar com a parceira</p>
+          </article>
+          <article class="capture-card reveal delay-2">
+            <h3>Recomendação mínima</h3>
+            <p>2 sessões no mês</p>
+          </article>
+        </div>
+
+        <p class="capture-note reveal delay-3">Você decide quantas sessões contratar — o restante do trabalho da Plixel segue igual.</p>
+      </div>
+    </section>
+
+    <section class="section" id="investimento">
+      <div class="container">
+        <p class="label reveal">05 / INVESTIMENTO</p>
+        <h2 class="title medium reveal delay-1">O que cabe no mês de junho.</h2>
+
+        <div class="investment-grid">
+          <article class="investment-card featured reveal delay-1">
+            <span class="proposal-tag">JUNHO 2026 — ONBOARDING</span>
+            <h3 class="price">R$ 3.000</h3>
+            <p class="price-caption">entrega única</p>
+            <ul class="investment-list">
+              <li>Planejamento estratégico</li>
+              <li>30 artes</li>
+              <li>30 legendas</li>
+              <li>Gestão de aprovações</li>
+              <li>Relatório final</li>
+              <li>Google Meu Negócio</li>
+            </ul>
+            <p class="investment-note">Jean produz os vídeos e fotos brutas</p>
+          </article>
+
+          <article class="investment-card reveal delay-2">
+            <span class="proposal-tag">A PARTIR DE JULHO — GESTÃO MENSAL</span>
+            <h3 class="price">R$ 1.800</h3>
+            <p class="price-caption">por mês</p>
+            <ul class="investment-list">
+              <li>Novo planejamento todo mês</li>
+              <li>Design completo</li>
+              <li>Legendas</li>
+              <li>Relatório mensal</li>
+            </ul>
+            <p class="investment-note">Continuidade do sistema construído em junho</p>
+          </article>
+        </div>
+
+        <p class="investment-footer reveal delay-3">Captação presencial: valor a confirmar com parceira · Jean decide quantas sessões incluir</p>
+      </div>
+    </section>
+
+    <section class="section next" id="proximos-passos">
+      <div class="container">
+        <p class="label light reveal">06 / PRÓXIMOS PASSOS</p>
+        <h2 class="title reveal delay-1">Para começar.</h2>
+        <p class="section-subtitle reveal delay-2">Aprovando esta proposta, a Plixel inicia o trabalho imediatamente. Os primeiros posts de junho estarão prontos para revisão até o dia 27 de maio.</p>
+
+        <div class="timeline">
+          <div class="timeline-step reveal delay-1">
+            <span class="timeline-number">01</span>
+            <span class="timeline-label">Aprovação</span>
+          </div>
+          <div class="timeline-step reveal delay-2">
+            <span class="timeline-number">02</span>
+            <span class="timeline-label">Briefing (30 min)</span>
+          </div>
+          <div class="timeline-step reveal delay-3">
+            <span class="timeline-number">03</span>
+            <span class="timeline-label">Acesso ao Instagram e Google</span>
+          </div>
+          <div class="timeline-step reveal delay-4">
+            <span class="timeline-number">04</span>
+            <span class="timeline-label">Início da produção</span>
+          </div>
+        </div>
+
+        <hr class="footer-rule">
+        <footer class="proposal-footer">
+          <div class="footer-left">
+            <img class="jm-footer-logo" src="05_logo_jm_branca.png" alt="JM Concept">
+            <span class="footer-divider" aria-hidden="true"></span>
+            <img class="plixel-logo" src="06_logo_plixel_branca.png" alt="Plixel Design">
+            <span>Plixel Design · plixel.com.br</span>
+          </div>
+          <div class="footer-right">
+            <span>Proposta válida até 27/05/2026</span>
+          </div>
+        </footer>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const revealTargets = document.querySelectorAll('.reveal, .metric');
+
+    if ('IntersectionObserver' in window) {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('in-view');
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.16 });
+
+      revealTargets.forEach((target) => observer.observe(target));
+    } else {
+      revealTargets.forEach((target) => target.classList.add('in-view'));
+    }
+  </script>
+</body>
+</html>
